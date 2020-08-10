@@ -1,6 +1,8 @@
 {
   "name": "mesto-react",
   "version": "0.1.0",
+  "author": "Руслан Рамазанов",
+  "description": "Проект для Яндекс.Практикума на технологии React",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
