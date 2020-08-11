@@ -9,6 +9,7 @@ function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
+  const [isConfirmPopupOpen, setConfirmPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState('');
 
   function handleEditAvatarClick() {
@@ -23,10 +24,15 @@ function App() {
     setAddPlacePopupOpen(true);
   }
 
+  function handleConfirmClick() {
+    setConfirmPopupOpen(true);
+  }
+
   function closeAllPopups() {
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
+    setConfirmPopupOpen(false);
     setSelectedCard('');
   }
 
@@ -42,6 +48,7 @@ function App() {
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
+        onConfirm={handleConfirmClick}
         onCardClick={handleCardClick}
       />
       <Footer />
@@ -88,7 +95,8 @@ function App() {
       <PopupWithForm
         name="confirm"
         title="Вы уверены?"
-        isOpen={false}>
+        isOpen={isConfirmPopupOpen}
+        onClose={closeAllPopups}>
         <input type="submit" value="Да" className="popup__save-button" />
       </PopupWithForm>
 

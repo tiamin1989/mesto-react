@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import kusto from '../images/kusto.jpg';
-import { api } from '../utils/utils.js';
+import { connectApi } from '../utils/utils.js';
 import Card from './Card.js';
 
-function Main({ onAddPlace, onCardClick, onEditAvatar, onEditProfile }) {
+function Main({ onAddPlace, onConfirm, onCardClick, onEditAvatar, onEditProfile }) {
   const [userName, setUserName] = useState('Загрузка...');
   const [userDescription, setUserDescription] = useState('Загрузка...');
   const [userAvatar, setUserAvatar] = useState(kusto);
   const [cards, setCards] = useState([]);
 
   React.useEffect(() => {
-    api.getPersonData().then(res => {
+    connectApi.getPersonData().then(res => {
       setUserName(res.name);
       setUserDescription(res.about);
       setUserAvatar(res.avatar);
     });
-    api.getInitialCards().then(res => {
+    connectApi.getInitialCards().then(res => {
       setCards(
         res.map(item => ({
           likes: item.likes,
@@ -50,6 +50,7 @@ function Main({ onAddPlace, onCardClick, onEditAvatar, onEditProfile }) {
               key={index}
               card={item}
               onCardClick={onCardClick}
+              onConfirm={onConfirm}
             />);
         })}
       </section>

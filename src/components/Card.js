@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Card({ card, onCardClick }) {
+function Card({ card, onCardClick, onConfirm }) {
 
   function handleClick(e) {
     onCardClick(e);
@@ -8,7 +8,7 @@ function Card({ card, onCardClick }) {
 
   return (
     <article className="photo-grid__item">
-      <button className="photo-grid__delete" />
+      <button className="photo-grid__delete" onClick={onConfirm}/>
       <img src={card.link} alt={card.name} className="photo-grid__photo" onClick={handleClick} />
       <div className="photo-grid__item-info">
         <h2 className="photo-grid__title">{card.name}</h2>
