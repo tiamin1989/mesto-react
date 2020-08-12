@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import kusto from '../images/kusto.jpg';
+import avatarStub from '../images/avatarStub.png';
 import { connectApi } from '../utils/utils.js';
 import Card from './Card.js';
 
 function Main({ onAddPlace, onConfirm, onCardClick, onEditAvatar, onEditProfile }) {
   const [userName, setUserName] = useState('Загрузка...');
   const [userDescription, setUserDescription] = useState('Загрузка...');
-  const [userAvatar, setUserAvatar] = useState(kusto);
+  const [userAvatar, setUserAvatar] = useState(avatarStub);
   const [cards, setCards] = useState([]);
 
   React.useEffect(() => {
