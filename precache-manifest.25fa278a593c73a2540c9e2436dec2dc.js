@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8951698819252c97ba6391b4df1f6676",
+    "revision": "f0d845e8e478638f7501b764ee9630b2",
     "url": "/mesto-react/index.html"
   },
   {
-    "revision": "d96bf31c0f6476eb7387",
+    "revision": "75b2a11144a5e9d6d41c",
     "url": "/mesto-react/static/css/main.1000f060.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/mesto-react/static/js/2.458dbe58.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "d96bf31c0f6476eb7387",
-    "url": "/mesto-react/static/js/main.f1cc6dbc.chunk.js"
+    "revision": "75b2a11144a5e9d6d41c",
+    "url": "/mesto-react/static/js/main.f73afaad.chunk.js"
   },
   {
     "revision": "6e04319a44e5e6859875",
@@ -58,10 +58,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "9fdebb6b009c16af50fae58657e30a94",
     "url": "/mesto-react/static/media/heart_black.9fdebb6b.svg"
-  },
-  {
-    "revision": "4a1ce1f1a6e526a15c9a42459d94ded7",
-    "url": "/mesto-react/static/media/kusto.4a1ce1f1.jpg"
   },
   {
     "revision": "855a8c9865e79463f31e74f9abcb4438",
