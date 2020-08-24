@@ -4,6 +4,8 @@ import Main from './Main.js';
 import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
+import { connectApi } from '../utils/utils.js';
+import { CurrentUserContext, userContext } from '../contexts/CurrentUserContext.js';
 
 function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
@@ -14,9 +16,16 @@ function App() {
   const [currentName, setCurrentName] = useState('');
   const [currentActivity, setCurrentActivity] = useState('');
   const [isImagePopupOpen, setImagePopupOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState(userContext);
+
+  React.useEffect(() => {
+    connectApi.getPersonData().then(res => {
+      setCurrentUser(res);
+    });
+  }, []);
 
   function handleEditAvatarClick() {
-    setEditAvatarPopupOpen(true);
+    setEditAvatarPopupOpen(true);console.log('currentUser',currentUser)
   }
 
   function handleEditProfileClick() {
@@ -47,7 +56,7 @@ function App() {
   }
 
   return (
-    <>
+    <CurrentUserContext.Provider value={currentUser}>
       <Header />
       <div className="page__divider" />
       <Main
@@ -83,7 +92,7 @@ function App() {
           disabled
         />
       </PopupWithForm>
-      {/* По требованию проекта нужно заполнять не placeholder, а значение value поля input при открытии popup */}
+
       <PopupWithForm
         name="profile"
         title="Редактировать профиль"
@@ -181,7 +190,7 @@ function App() {
         />
       </PopupWithForm>
 
-    </>
+    </CurrentUserContext.Provider>
   );
 }
 
