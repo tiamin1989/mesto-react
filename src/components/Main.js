@@ -8,13 +8,31 @@ function Main({ onAddPlace, onConfirm, onCardClick, onEditAvatar, onEditProfile 
 
   const currentUser = React.useContext(CurrentUserContext);
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(like => like._id === currentUser._id);
+    connectApi.likeCard(card._id, isLiked).then((newCard) => {
+      const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+      setCards(newCards);
+    });
+  }
+
+  function handleCardDelete(cardId) {
+    connectApi.deleteCardData(cardId)
+      .then(() => {
+        const newCards = cards.filter((c) => c._id !== cardId);
+        setCards(newCards);
+      });
+  }
+
   React.useEffect(() => {
     connectApi.getInitialCards().then(res => {
       setCards(
         res.map(item => ({
           likes: item.likes,
           link: item.link,
-          name: item.name
+          name: item.name,
+          owner: item.owner,
+          _id: item._id
         }))
       )
     })
@@ -45,6 +63,8 @@ function Main({ onAddPlace, onConfirm, onCardClick, onEditAvatar, onEditProfile 
               card={item}
               onCardClick={onCardClick}
               onConfirm={onConfirm}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
             />);
         })}
       </section>
