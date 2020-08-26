@@ -19,7 +19,7 @@ function Card({ card, onCardClick, onConfirm, onCardLike, onCardDelete }) {
   function handleDeleteClick(cardId) {
     onCardDelete(cardId);
   }
-
+console.log('card',card)
   return (
     <article className="photo-grid__item">
       {isOwn && (<button className="photo-grid__delete" onClick={/* onConfirm */() => handleDeleteClick(card._id)}/>)}

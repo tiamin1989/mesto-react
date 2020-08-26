@@ -39,10 +39,10 @@ function App() {
 
   function handleAddPlaceSubmit(newCard) {
     connectApi.saveCardData(newCard)
-      .then(() => {console.log('cards', cards)
+      .then(res => {
         setCards(
-          [...cards, newCard]
-        )
+          [...cards, res]
+        );
       });
   }
 
@@ -79,13 +79,11 @@ function App() {
     connectApi.savePersonData(userInfo)
       .then(() => {
         setCurrentUser(userInfo);
-        closeAllPopups();
       });
   }
 
   function handleUpdateAvatar(avatarInfo) {
-    connectApi.changeAvatar(avatarInfo)
-      .then(() => closeAllPopups());
+    connectApi.changeAvatar(avatarInfo);
   }
 
   React.useEffect(() => {
@@ -106,7 +104,7 @@ function App() {
     connectApi.getPersonData().then(res => {
       setCurrentUser(res);
     });
-  }, [currentUser]);
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
