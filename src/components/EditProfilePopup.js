@@ -21,6 +21,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     onUpdateUser({
       name: name,
       about: description,
+      avatar: currentUser.avatar
     });
     onClose();
   }

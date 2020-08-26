@@ -75,15 +75,18 @@ function App() {
     setImagePopupOpen(true);
   }
 
-  function handleUpdateUser(userInfo) {
-    connectApi.savePersonData(userInfo)
+  function handleUpdateUser({ name, about, avatar }) {
+    connectApi.savePersonData({ name, about })
       .then(() => {
-        setCurrentUser(userInfo);
+        setCurrentUser({ name, about, avatar });
       });
   }
 
   function handleUpdateAvatar(avatarInfo) {
-    connectApi.changeAvatar(avatarInfo);
+    connectApi.changeAvatar(avatarInfo)
+      .then(res => {
+        setCurrentUser(res);
+      });
   }
 
   React.useEffect(() => {
