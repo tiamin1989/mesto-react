@@ -100,32 +100,7 @@ class Api {
         alert(err);
       });
   }
-  /*   likeCard(user, card) {
-      const myLike = card._likes.find((currentUser, index, array) => {
-        if (currentUser._id === user._id) array.splice(index, 1);
-        return currentUser._id === user._id;
-      });
-      if (!myLike) card._likes.push(user);
-      return fetch(`${this.baseUrl}/cards/likes/${card._id}`, {
-        method: myLike ? 'DELETE' : 'PUT',
-        headers: {
-          authorization: this.token,
-          'Content-Type': 'application/json'
-        }
-      })
-        .then(res => {
-          if (!res.ok) return Promise.reject(`Ошибка: ${res.status}`);
-          res.json()
-            .then(res => {
-              card._card.querySelector('.photo-grid__like-count').textContent = res.likes.length;
-              card.likeCard();
-            });
-        })
-        .catch((err) => {
-          alert(err);
-        });
-    } */
-  changeAvatar({ url }) {
+  changeAvatar({ avatar }) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
@@ -133,7 +108,7 @@ class Api {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        avatar: url
+        avatar: avatar
       })
     })
       .then(res => {
