@@ -16,13 +16,9 @@ function Card({ card, onCardClick, onConfirm, onCardLike, onCardDelete }) {
     onCardLike(card);
   }
 
-  function handleDeleteClick(cardId) {
-    onCardDelete(cardId);
-  }
-
   return (
     <article className="photo-grid__item">
-      {isOwn && (<button className="photo-grid__delete" onClick={/* onConfirm */() => handleDeleteClick(card._id)}/>)}
+      {isOwn && (<button className="photo-grid__delete" onClick={() => onConfirm(card._id)} />)}
       <img src={card.link} alt={card.name} className="photo-grid__photo" onClick={handleClick} />
       <div className="photo-grid__item-info">
         <h2 className="photo-grid__title">{card.name}</h2>

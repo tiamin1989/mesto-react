@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
-import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
+import ConfirmPopup from './ConfirmPopup.js';
 import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
@@ -16,9 +16,9 @@ function App() {
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
   const [isConfirmPopupOpen, setConfirmPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState('');
+  const [cardId, setCardId] = useState('');
   const [isImagePopupOpen, setImagePopupOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(userContext);
-
   const [cards, setCards] = useState([]);
 
   function handleCardLike(card) {
@@ -29,7 +29,7 @@ function App() {
     });
   }
 
-  function handleCardDelete(cardId) {
+  function handleCardDelete() {
     connectApi.deleteCardData(cardId)
       .then(() => {
         const newCards = cards.filter((c) => c._id !== cardId);
@@ -58,7 +58,8 @@ function App() {
     setAddPlacePopupOpen(true);
   }
 
-  function handleConfirmClick() {
+  function handleConfirmClick(cardId) {
+    setCardId(cardId);
     setConfirmPopupOpen(true);
   }
 
@@ -101,7 +102,7 @@ function App() {
         }))
       )
     })
-  }, []);
+  }, [cards]);
 
   React.useEffect(() => {
     connectApi.getPersonData().then(res => {
@@ -149,17 +150,12 @@ function App() {
         onClose={closeAllPopups}
       />
 
-      <PopupWithForm
-        name="confirm"
-        title="Вы уверены?"
+      <ConfirmPopup
         isOpen={isConfirmPopupOpen}
-        onClose={closeAllPopups}>
-        <input
-          type="submit"
-          value="Да"
-          className="popup__save-button"
-        />
-      </PopupWithForm>
+        onClose={closeAllPopups}
+        onConfirm={handleCardDelete}
+        card={cardId}
+      />
 
     </CurrentUserContext.Provider>
   );
