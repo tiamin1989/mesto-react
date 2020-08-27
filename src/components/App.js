@@ -20,13 +20,17 @@ function App() {
   const [isImagePopupOpen, setImagePopupOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(userContext);
   const [cards, setCards] = useState([]);
+  const [errorText, setErrorText] = useState('');
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(like => like._id === currentUser._id);
     connectApi.likeCard(card._id, isLiked).then((newCard) => {
       const newCards = cards.map((c) => c._id === card._id ? newCard : c);
       setCards(newCards);
-    });
+    })
+      .catch((err) => {
+        setErrorText(err);
+      });
   }
 
   function handleCardDelete() {
@@ -34,6 +38,9 @@ function App() {
       .then(() => {
         const newCards = cards.filter((c) => c._id !== cardId);
         setCards(newCards);
+      })
+      .catch((err) => {
+        setErrorText(err);
       });
   }
 
@@ -43,6 +50,9 @@ function App() {
         setCards(
           [...cards, res]
         );
+      })
+      .catch((err) => {
+        setErrorText(err);
       });
   }
 
@@ -80,6 +90,9 @@ function App() {
     connectApi.savePersonData({ name, about })
       .then(() => {
         setCurrentUser({ name, about, avatar });
+      })
+      .catch((err) => {
+        setErrorText(err);
       });
   }
 
@@ -87,33 +100,44 @@ function App() {
     connectApi.changeAvatar(avatarInfo)
       .then(res => {
         setCurrentUser(res);
+      })
+      .catch((err) => {
+        setErrorText(err);
       });
   }
 
   React.useEffect(() => {
-    connectApi.getInitialCards().then(res => {
-      setCards(
-        res.map(item => ({
-          likes: item.likes,
-          link: item.link,
-          name: item.name,
-          owner: item.owner,
-          _id: item._id
-        }))
-      )
-    })
+    connectApi.getInitialCards()
+      .then(res => {
+        setCards(
+          res.map(item => ({
+            likes: item.likes,
+            link: item.link,
+            name: item.name,
+            owner: item.owner,
+            _id: item._id
+          }))
+        )
+      })
+      .catch((err) => {
+        setErrorText(err);
+      });
   }, [cards]);
 
   React.useEffect(() => {
-    connectApi.getPersonData().then(res => {
-      setCurrentUser(res);
-    });
+    connectApi.getPersonData()
+      .then(res => {
+        setCurrentUser(res);
+      })
+      .catch((err) => {
+        setErrorText(err);
+      });
   }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header />
-      <div className="page__divider" />
+      <div className="page__divider">{errorText}</div>
       <Main
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
@@ -122,7 +146,6 @@ function App() {
         onCardClick={handleCardClick}
         cards={cards}
         onCardLike={handleCardLike}
-        onCardDelete={handleCardDelete}
       />
       <Footer />
 

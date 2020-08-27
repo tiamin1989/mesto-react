@@ -12,10 +12,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     setDescription(currentUser.about);
   }, [currentUser]);
 
-  function handleChange(e) {
-    e.target.name === 'name' ? setName(e.target.value) : setDescription(e.target.value);
-  }
-
   function handleSubmit(e) {
     e.preventDefault();
     onUpdateUser({
@@ -34,7 +30,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       isOpen={isOpen}
       onClose={onClose}>
       <input
-        onChange={handleChange}
+        onChange={e => setName(e.target.value)}
         id="profile-name"
         name="name"
         type="text"
@@ -49,7 +45,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         className="popup__error"
       />
       <input
-        onChange={handleChange}
+        onChange={e => setDescription(e.target.value)}
         id="profile-activity"
         name="about"
         type="text"

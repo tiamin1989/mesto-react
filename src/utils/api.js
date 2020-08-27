@@ -13,9 +13,6 @@ class Api {
         if (res.ok) return res.json();
         return Promise.reject(`Ошибка: ${res.status}`);
       })
-      .catch((err) => {
-        alert(err);
-      });
   }
   getPersonData() {
     return fetch(`${this.baseUrl}/users/me`, {
@@ -29,9 +26,6 @@ class Api {
         }
         return Promise.reject(`Ошибка: ${res.status}`);
       })
-      .catch((err) => {
-        alert(err);
-      });
   }
   savePersonData({ name, about }) {
     return fetch(`${this.baseUrl}/users/me`, {
@@ -48,9 +42,6 @@ class Api {
       .then(res => {
         if (!res.ok) return Promise.reject(`Ошибка: ${res.status}`);
       })
-      .catch((err) => {
-        alert(err);
-      });
   }
   saveCardData({ name, link }) {
     return fetch(`${this.baseUrl}/cards`, {
@@ -68,9 +59,6 @@ class Api {
         if (!res.ok) return Promise.reject(`Ошибка: ${res.status}`);
         return res.json();
       })
-      .catch((err) => {
-        alert(err);
-      });
   }
   deleteCardData(cardId) {
     return fetch(`${this.baseUrl}/cards/${cardId}`, {
@@ -80,9 +68,6 @@ class Api {
         'Content-Type': 'application/json'
       }
     })
-      .catch((err) => {
-        alert(err);
-      });
   }
   likeCard(cardId, isLiked) {
     return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
@@ -96,9 +81,6 @@ class Api {
         if (!res.ok) return Promise.reject(`Ошибка: ${res.status}`);
         return res.json();
       })
-      .catch((err) => {
-        alert(err);
-      });
   }
   changeAvatar({ avatar }) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
@@ -115,9 +97,6 @@ class Api {
         if (!res.ok) return Promise.reject(`Ошибка: ${res.status}`);
         return res.json();
       })
-      .catch((err) => {
-        alert(err);
-      });
   }
 }
 
